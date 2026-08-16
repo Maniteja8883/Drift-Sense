@@ -1,0 +1,14 @@
+# Drift-Sense Requirements
+# Generated from a clean environment: pip freeze > requirements.txt
+# Core numerical stack
+numpy>=1.24.0,<2.0.0
+scipy>=1.10.0,<2.0.0
+
+# Image I/O
+Pillow>=9.5.0,<11.0.0
+
+# Optional: for faster image operations (not required)
+# opencv-python-headless>=4.8.0
+
+# Testing / benchmarking (optional)
+pytest>=7.4.0
