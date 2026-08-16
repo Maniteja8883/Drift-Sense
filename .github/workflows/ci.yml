@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --upgrade pip
+      - run: pip install -r requirements-dev.txt
+      - run: pytest -q
+      - run: ruff check src benchmark scripts tests config.py common.py inference.py dataset_generator.py evaluate.py benchmark_30.py
+      - run: python -m py_compile $(find src benchmark scripts tests -name '*.py')
+      - run: python scripts/run_benchmark.py --pairs 2 --dataset /tmp/drift-sense-dataset --results /tmp/drift-sense-results

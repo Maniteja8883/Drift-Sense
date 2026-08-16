@@ -1,268 +1,165 @@
-# Drift-Sense: Semiconductor Stage-Drift Recovery Engine
+# Drift-Sense
 
-> **Applied Materials Hackathon Submission**  
-> Production-grade precision: **Accuracy @ 1 px > 90%**, **Accuracy @ 5 px > 99%**, **Latency < 80 ms**
+Deterministic semiconductor image localization for recovering a known inspection site under small stage drift, scale/rotation mismatch, and periodic visual ambiguity.
 
----
+![Annotated demo result](examples/result.png)
 
-## Overview
+## What is the official system?
 
-Drift-Sense recovers the physical location of a high-resolution SEM reference feature within a low-resolution search image, correcting for stage rotation (±3°), scaling (±5%), and authentic SEM noise (shot noise, edge charging, scanline jitter, charging gradients).
+There is exactly one official inference/benchmark path:
 
-The engine achieves sub-pixel precision through a **hierarchical coarse-to-fine FFT-ZNCC pipeline** with mathematically exact coordinate mapping — no arbitrary cropping or heuristic offsets.
+`src/drift_sense/pipeline.py` → `LocalizationEngine` → FFT-ZNCC coarse search → rotation/scale grid → center-prior tie-break → full-resolution refinement → subpixel peak refinement → confidence/status diagnostics.
 
----
+The original PyTorch research stack is preserved under [`experimental/ml/`](experimental/ml/), but it is not imported or used for the reported results because no verified checkpoint or reproducible ML benchmark was present.
 
-## Physical Ground Truth
+The official path is classical and requires no model weights. The inference script does not read generated ground truth, pair filenames, metadata, or benchmark outputs; the audit is recorded in [`docs/leakage_audit.md`](docs/leakage_audit.md).
 
-| Parameter | Reference (High-Res) | Search (Low-Res) |
-|-----------|---------------------|------------------|
-| Resolution | 1 nm/pixel | 10 nm/pixel |
-| Image Size | 1000 × 1000 px | 1000 × 1000 px |
-| Physical FOV | 1 µm × 1 µm | 10 µm × 10 µm |
-| Zoom | 100× | 10× |
-| Scale Factor | **10×** (reference is 10× finer) | — |
+## Why this problem is difficult
 
-The entire 1000×1000 reference represents **1 µm²**. In the search frame (10 nm/px), this exact feature occupies a **100 × 100 pixel** footprint centered at **(500, 500)**.
+A known high-resolution reference must be localized in a larger, lower-resolution search image. Repeated semiconductor structures create near-equal correlation peaks, so a high score alone does not guarantee the correct site. Drift also changes scale, rotation, brightness, and local appearance.
 
----
+## Quick start
 
-## Architecture
-
-### Two-Scale Hierarchical Matching (Option B — Coarse-to-Fine)
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│ REFERENCE (1000×1000 @ 1 nm/px)                                 │
-│   │                                                              │
-│   ▼ area_downsample(factor=10)                                   │
-│ TEMPLATE (100×100) ──┬──► WARP (angle, scale) ──► 15 candidates  │
-│                      │                                           │
-└──────────────────────┘                                           │
-                                                                   │
-┌─────────────────────────────────────────────────────────────────┐
-│ SEARCH (1000×1000 @ 10 nm/px)                                   │
-│   │                                                              │
-│   ▼ area_downsample(factor=4)                                    │
-│ COARSE SEARCH (250×250) ──► ZNCC × 15 ──► NMS ──► tie-break     │
-│   │                         ~1 ms                                │
-│   │                                                              │
-│   ▼ ROI crop (160×160) around coarse center                     │
-│ FINE SEARCH (full-res) ──► ZNCC × 9 (3×3 grid) ──► sub-pixel    │
-│   │                         ~8 ms                                │
-│   ▼                                                              │
-│ OUTPUT: (X, Y) = peak_top_left + 49.5  (sub-pixel)             │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-### Key Innovations
-
-1. **Exact Coordinate Mapping**  
-   Template top-left `(u, v)` → feature center:  
-   `X = u + (100-1)/2 = u + 49.5`, `Y = v + 49.5`  
-   Derived from physical scale equivalence — no magic constants.
-
-2. **FFT-ZNCC with Integral-Image Variance**  
-   - Numerator: `rfft2(search) × conj(rfft2(template))` → single inverse FFT
-   - Denominator: Local `mean(S)`, `mean(S²)` in **O(1)** via integral images
-   - Single-precision `float32` throughout for speed
-
-3. **Sub-Pixel Parabolic Refinement**  
-   Symmetric 3-point parabola for interior peaks; one-sided finite-difference fallback for edge peaks. Clipped to ±0.5 px for stability.
-
-4. **Robust Peak Selection**  
-   - Non-Maximum Suppression (Chebyshev radius 20 px)
-   - Center-proximity tie-breaker among candidates within 5% of max score
-
-5. **Candidate Ordering for Early Exit**  
-   Evaluated in likelihood order: `(0°, 1.0)` → `±1.5°` → `0.95/1.05` → `±3°`.  
-   Early exit at coarse ≥ 0.85, fine ≥ 0.96 after minimum 5 candidates.
-
----
-
-## Installation
+Python 3.9+ is supported. The official path needs only NumPy and Pillow:
 
 ```bash
-cd drift_sense
+python -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
+python scripts/run_demo.py
+python -m pytest -q
+python scripts/run_benchmark.py
 ```
 
-Dependencies:
-- `numpy ≥ 1.24`
-- `scipy ≥ 1.10`
-- `Pillow ≥ 9.5`
+`requirements.txt` is intentionally a complete frozen environment capture as required by the submission contract; it includes the test/lint packages used to verify this checkout. The optional `requirements-dev.txt` and `requirements-ml.txt` files are supplementary.
 
----
+## Submission-contract commands
 
-## Quick Start
+Generate pairs independently of the benchmark:
 
 ```bash
-# Run inference on a single pair
-python inference.py --reference ref.png --search search.png
-# Output:  500.1234  499.8765
-
-# Generate benchmark dataset (30 pairs + 1 pathological)
-python -m dataset_generator
-
-# Evaluate on full dataset
-python -m evaluate
-
-# Run official benchmark-30
-python benchmark_30.py
+python dataset_generator.py \
+  --architecture DRAM \
+  --num-pairs 3 \
+  --output-dir ./dataset_sample \
+  --seed 123
 ```
 
----
+The output directory contains `reference_000.png`, `search_000.png`, and `benchmark_ground_truth.csv` (plus `manifest.csv` and metadata). The ground-truth CSV records `index`, `architecture`, `reference`, `search`, `gt_x`, `gt_y`, and the partition/noise metadata. Use `--architecture FinFET` for FinFET-only pairs or `both` for an alternating mixed set. The same seed produces the same generated files.
 
-## Benchmark Results (Target Hardware: Single CPU Core)
+Run the public evaluator-facing API:
 
-| Metric | Target | Achieved |
-|--------|--------|----------|
-| **Accuracy @ 1.0 px** (≤10 nm) | **> 90%** | **94.3%** |
-| **Accuracy @ 3.0 px** (≤30 nm) | — | 98.7% |
-| **Accuracy @ 5.0 px** (≤50 nm) | **> 99%** | **100%** |
-| Median Error | — | 0.42 px |
-| P90 Error | — | 1.1 px |
-| **Max Latency** | **< 80 ms** | **47 ms** |
-| Mean Latency | — | 28 ms |
-
-*Results on 30 curated pairs (15 DRAM, 15 FinFET) with noise multipliers 0.5–2.0×.*
-
-### Layout Breakdown
-
-| Layout | Count | Acc @ 1px | Acc @ 5px | Median Error |
-|--------|-------|-----------|-----------|--------------|
-| DRAM | 15 | 93.3% | 100% | 0.38 px |
-| FinFET | 15 | 93.3% | 100% | 0.45 px |
-| Pathological (periodic) | 1 | 0% | 0% | 42.0 px |
-
-The pathological case (infinite periodic grid without fiducials) correctly fails — demonstrating the **information-theoretic boundary** where correlation cannot disambiguate.
-
----
-
-## Precision-Recall Curve
-
-| Score Threshold τ | Precision (≤5px) | Recall (≤5px) |
-|------------------|------------------|---------------|
-| 0.50 | 0.89 | 1.00 |
-| 0.60 | 0.92 | 1.00 |
-| 0.70 | 0.96 | 0.99 |
-| 0.80 | 0.98 | 0.97 |
-| 0.90 | 0.99 | 0.93 |
-| 0.95 | 1.00 | 0.87 |
-| 0.99 | 1.00 | 0.73 |
-
-High correlation scores are well-calibrated confidence measures.
-
----
-
-## SEM Noise Model (Physics-Informed)
-
-Each image receives **independent** noise realizations:
-
-| Noise Source | Model | Parameters |
-|-------------|-------|------------|
-| **Poisson Shot Noise** | `Poisson(I × λ) / λ` | λ = 100 e⁻/pixel |
-| **Edge Charging / Bloom** | Additive Sobel gradient blend | strength = 0.15 |
-| **Charging Gradient** | Bilinear 2D ramp | amplitude = 0.05 |
-| **Scanline Jitter** | Per-row horizontal shift | ±0.3 px |
-| **Stage Misalignment** | Rotation + Scale | ±3°, 0.95–1.05× |
-
-Reference and search use **separate random seeds** — no shared noise.
-
----
-
-## Mathematical Derivation
-
-### Coordinate Mapping Proof
-
-Let the reference image `R` be 1000×1000 at 1 nm/px.  
-Physical extent: `1000 nm = 1 µm` in each dimension.
-
-The search image `S` is 1000×1000 at 10 nm/px.  
-Physical extent: `10000 nm = 10 µm` in each dimension.
-
-The feature in `R` spans the full 1 µm². In `S`'s coordinate system (10 nm/px),  
-this corresponds to `(1000 nm) / (10 nm/px) = 100 px` per side.
-
-Template extraction: `T = downsample(R, factor=10)` → 100×100 pixels.
-
-When `T` is placed at top-left `(u, v)` in `S`, its physical center is at:
-```
-X = (u + (100-1)/2) × 10 nm = (u + 49.5) × 10 nm
-Y = (v + (100-1)/2) × 10 nm = (v + 49.5) × 10 nm
-```
-In search-image pixel coordinates (10 nm/px):
-```
-X_px = u + 49.5
-Y_px = v + 49.5
-```
-**Q.E.D.** — No arbitrary offsets, purely physical.
-
-### ZNCC via FFT + Integral Images
-
-Zero-mean normalized cross-correlation at displacement `(u, v)`:
-```
-ZNCC(u,v) = Σᵢⱼ [T'(i,j) × S'(u+i,v+j)] / √[ΣT'² × ΣS'(u..u+h,v..v+w)²]
-where T' = T - μ_T,  S'(x,y) = S(x,y) - μ_S(u,v; h,w)
+```bash
+python inference.py \
+  --reference examples/reference.png \
+  --search examples/search.png
+# stdout: one line containing exactly: x y
 ```
 
-- **Numerator**: Cross-correlation via FFT convolution theorem:
-  `corr = IFFT2( FFT2(S) × conj(FFT2(T')) )`  — single pair of FFTs
+The script resolves its package path from its own repository location, so it also works from another directory:
 
-- **Denominator**: Local window statistics via integral images (summed-area tables):
-  `μ_S(u,v) = sum_S(u,v) / n`
-  `σ²_S(u,v) = (sum_S2(u,v) - sum_S(u,v)²/n) / n`
-  Both `sum_S` and `sum_S2` are O(1) queries from precomputed integral images.
-
-Total cost: **O(HW log HW)** for FFT + **O(HW)** for integrals, independent of template count after first candidate.
-
----
-
-## Project Structure
-
-```
-drift_sense/
-├── config.py              # All physical & algorithmic constants
-├── common.py              # Numerical primitives (FFT-ZNCC, transforms, NMS)
-├── inference.py           # Hierarchical prediction pipeline + CLI
-├── dataset_generator.py   # Physics-informed SEM synthesis
-├── evaluate.py            # Full benchmark metrics + PR curves
-├── benchmark_30.py        # Official hackathon runner
-├── requirements.txt       # Hermetic dependencies
-└── README.md              # This file
+```bash
+cd /tmp
+python /absolute/path/to/drift_sense/inference.py \
+  --reference /absolute/path/to/drift_sense/examples/reference.png \
+  --search /absolute/path/to/drift_sense/examples/search.png
 ```
 
----
+Only the coordinate line goes to stdout. Diagnostics are opt-in via `--time` and go to stderr; the richer `scripts/run_demo.py` is for human-readable status/confidence output.
 
-## Literature Citations (SEM Noise Modeling)
+The strict challenge-compatible wrapper prints only coordinates:
 
-1. **Joy, D. C.** (1995). *Monte Carlo Modeling for Electron Microscopy and Microanalysis*. Oxford University Press. — Electron-solid interaction, secondary emission.
+```bash
+python inference.py --reference examples/reference.png --search examples/search.png
+```
 
-2. **Goldstein, J. I. et al.** (2017). *Scanning Electron Microscopy and X-Ray Microanalysis*. 4th ed., Springer. — Charging artifacts, edge effects, beam-specimen interaction.
+The richer demo prints coordinates, score, heuristic confidence, status, latency, and writes `examples/result.png`.
 
-3. **Reimer, L.** (1998). *Scanning Electron Microscopy: Physics of Image Formation and Microanalysis*. Springer. — Shot noise, detector statistics.
+## Demo output
 
-4. **Lewis, J. P.** (1995). *Fast Normalized Cross-Correlation*. Industrial Light & Magic Technical Report. — FFT-ZNCC derivation.
+The included example is deterministic for coordinates and score. A run on the checked-out example reports:
 
-5. **Bracewell, R. N.** (2000). *The Fourier Transform and Its Applications*. 3rd ed., McGraw-Hill. — Convolution theorem, correlation.
+```json
+{
+  "x": 499.5,
+  "y": 499.5,
+  "confidence": 0.6781366495,
+  "status": "SUCCESS",
+  "score": 0.2881953716
+}
+```
 
----
+The exact latency is machine-dependent; run the command to obtain the local value.
+
+## Verified benchmark
+
+The canonical command generates 30 in-distribution synthetic pairs (15 DRAM-like, 15 FinFET-like) and one separate adversarial periodic pair, then stores machine-readable and human-readable artifacts under [`results/`](results/).
+
+```bash
+python scripts/run_benchmark.py
+```
+
+The committed [`results/benchmark_summary.md`](results/benchmark_summary.md) and [`results/benchmark_30.json`](results/benchmark_30.json) are the source of truth for measured values. The benchmark reports Acc@1px/3px/5px, median/mean/P90/P95 error, P50/P90/P95/P99/max latency, method comparisons, status counts, and environment metadata. Results are scoped to this synthetic dataset and recorded CPU; they are not industrial SEM validation.
+
+## Baseline comparison
+
+The benchmark measures:
+
+| Method | What it tests |
+|---|---|
+| `naive_single_scale` | One unwarped FFT-ZNCC map with raw argmax |
+| `fft_zncc_center_tie` | Single-scale FFT-ZNCC plus the documented center tie-break |
+| `fft_zncc_geometric` | Rotation/scale search with coarse coordinate output |
+| `drift_sense_final` | Official geometric search plus fine refinement and diagnostics |
+
+The measured table is regenerated in [`results/benchmark_30.csv`](results/benchmark_30.csv); no numbers are hard-coded in this README.
+
+## Ambiguity and failure handling
+
+The richer API returns `(x, y)`, a matching score, heuristic confidence, and one of:
+
+- `SUCCESS`
+- `AMBIGUOUS`
+- `LOW_CONFIDENCE`
+- `OUT_OF_DISTRIBUTION`
+
+Ambiguity is based on separated near-equal peaks. The periodic adversarial sample is reported separately so it cannot inflate the in-distribution accuracy claim. The strict wrapper still prints coordinates for challenge integrations; applications should inspect the richer result status.
+
+## Data and assumptions
+
+The generator is a **physics-informed synthetic SEM corruption approximation**, not authentic or validated SEM noise. It simulates Poisson shot noise, an edge/charging approximation, smooth charging gradients, scanline jitter, and bounded rotation/scale mismatch. Details and limitations are in [`docs/benchmark_methodology.md`](docs/benchmark_methodology.md), [`docs/assumptions.md`](docs/assumptions.md), and [`docs/limitations.md`](docs/limitations.md).
+
+The technical choices are supported and numbered in [`docs/references.md`](docs/references.md): [1] image formation/shot-noise context, [2] charging and image defects, [3] normalized cross-correlation, and [4] coarse-to-fine signal processing context.
+
+The default coordinate geometry is 1 nm/pixel reference, 10 nm/pixel search, and a 100×100 search-space template. The 49.5 center offset is derived from `(100 - 1)/2` and tested in [`tests/test_geometry.py`](tests/test_geometry.py). The center prior is a challenge-scoped assumption, not universal capability.
 
 ## Reproducibility
 
-All random seeds are deterministic:
-- Dataset seed: `0xD1575317` ("DRIFT")
-- Per-pair seeds derived from base seed
-- Noise multipliers pre-sampled: `Uniform(0.5, 2.0)`
+- `requirements.txt` is the frozen `pip freeze` from the verified development environment used for the committed benchmark; `requirements-dev.txt` and `requirements-ml.txt` are supplementary engineering files.
+- Dataset seed: `0xD1575317`.
+- Dataset version: `synthetic-v2`.
+- Dataset manifest, metadata, split/partition labels, and pair-level records are generated by the canonical command.
+- Environment and Git commit are recorded in the JSON artifact where available.
+- Tests cover geometry, FFT-ZNCC against a direct reference, constant/invalid inputs, NMS, subpixel refinement, periodic ambiguity, and pipeline dimension handling.
 
-Run `python benchmark_30.py` on a fresh environment — results are bit-for-bit reproducible.
+## Project structure
 
----
+```text
+src/drift_sense/       official package: geometry, matching, pipeline, diagnostics, dataset
+baseline/              reusable FFT-ZNCC baseline
+benchmark/              metric, comparison, and artifact generation code
+scripts/                canonical demo and benchmark commands
+tests/                  numerical and pipeline tests
+docs/                   architecture, methodology, assumptions, limitations, audit
+examples/               deterministic input pair and annotated output
+results/                verified benchmark artifacts
+experimental/ml/        retained PyTorch research implementation, not official
+```
+
+## Limitations and future work
+
+The benchmark is synthetic, layouts are simplified, and no real SEM calibration or tool-side validation is included. The center prior can bias off-center targets, and periodic cases may remain fundamentally ambiguous. Future work should validate on labeled real SEM acquisitions, calibrate confidence, and only then reconsider whether the experimental ML path improves the official result.
 
 ## License
 
-MIT License — see LICENSE file for details.
-
----
-
-**Drift-Sense** — *Where metrology meets machine vision.*
+MIT; see [`LICENSE`](LICENSE).
