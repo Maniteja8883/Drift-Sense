@@ -13,7 +13,7 @@ Dataset: `synthetic-v2`, 30 in-distribution pairs; one adversarial periodic pair
 | Acc@5px | 100.00% |
 | Median error | 0.513 px |
 | P90 error | 2.611 px |
-| P50/P90/P99/max latency | 87.02/92.17/109.62/110.25 ms |
+| P50/P90/P99/max latency | 86.14/90.71/108.45/109.10 ms |
 | Confidence mean/p10 | 0.780/0.568 |
 | Status counts | `{'AMBIGUOUS': 1, 'LOW_CONFIDENCE': 2, 'SUCCESS': 27}` |
 

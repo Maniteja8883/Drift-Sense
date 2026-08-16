@@ -128,8 +128,8 @@ Verified in-distribution results from the current stored artifact:
 | Acc@5px | 100.00% |
 | Median error | 0.513 px |
 | P90 error | 2.611 px |
-| P50 latency | 87.02 ms |
-| P99 latency | 109.62 ms |
+| P50 latency | 86.14 ms |
+| P99 latency | 108.45 ms |
 
 Environment: Python 3.9.6, NumPy 1.26.4, Pillow 10.4.0, macOS arm64 CPU. The adversarial periodic sample is reported separately as `AMBIGUOUS` and is excluded from the in-distribution accuracy claim.
 
