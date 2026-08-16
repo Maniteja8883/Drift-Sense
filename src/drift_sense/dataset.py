@@ -155,6 +155,8 @@ def generate_dataset(output_dir: str = "dataset", n_pairs: int = 30,
                      include_pathological: bool = True,
                      architecture: str = "both") -> str:
     """Generate benchmark PNGs and a manifest; return the manifest path."""
+    if int(n_pairs) < 1:
+        raise ValueError("n_pairs must be >= 1")
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
     rng = np.random.default_rng(seed)
@@ -194,7 +196,9 @@ def generate_dataset(output_dir: str = "dataset", n_pairs: int = 30,
                      "noise_multiplier": 0.15})
     manifest = out / "benchmark_ground_truth.csv"
     with manifest.open("w", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(rows[0].keys()))
+        required_fields = ["index", "architecture", "reference", "search", "gt_x", "gt_y"]
+        extra_fields = ["partition", "layout", "ref_path", "search_path", "noise_multiplier"]
+        writer = csv.DictWriter(handle, fieldnames=required_fields + extra_fields)
         writer.writeheader()
         writer.writerows(rows)
     (out / "manifest.csv").write_text(manifest.read_text())

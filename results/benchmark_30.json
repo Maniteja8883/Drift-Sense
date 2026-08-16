@@ -10,7 +10,8 @@
     "cpu": "arm",
     "cpu_count": 10,
     "accelerator": "CPU; official path does not use GPU",
-    "git_commit": "d3ffaafa2d0e18fa8f6f45d26fe97b9df951fc6c",
+    "git_commit": "a3a28f87e614c715c8627617307b5bb18e80ed72",
+    "git_worktree_dirty_at_benchmark": true,
     "latency_method": "time.perf_counter around in-memory prediction; image IO excluded",
     "accuracy_method": "Euclidean search-image-pixel error against manifest ground truth"
   },
@@ -37,11 +38,11 @@
           "p10": null
         },
         "latency": {
-          "p50_ms": 88.23006250000009,
-          "p90_ms": 88.94512920000022,
-          "p95_ms": 89.68426644999994,
-          "p99_ms": 93.71042814000013,
-          "max_ms": 95.13950000000015
+          "p50_ms": 78.80235449999961,
+          "p90_ms": 80.93124110000024,
+          "p95_ms": 83.96773954999937,
+          "p99_ms": 90.7924228199995,
+          "max_ms": 93.3729999999997
         }
       },
       "adversarial": {
@@ -64,11 +65,11 @@
           "p10": null
         },
         "latency": {
-          "p50_ms": 103.2980410000004,
-          "p90_ms": 103.2980410000004,
-          "p95_ms": 103.2980410000004,
-          "p99_ms": 103.2980410000004,
-          "max_ms": 103.2980410000004
+          "p50_ms": 94.83554200000022,
+          "p90_ms": 94.83554200000022,
+          "p95_ms": 94.83554200000022,
+          "p99_ms": 94.83554200000022,
+          "max_ms": 94.83554200000022
         }
       },
       "all": {
@@ -91,11 +92,11 @@
           "p10": null
         },
         "latency": {
-          "p50_ms": 88.2745000000007,
-          "p90_ms": 89.03966699999977,
-          "p95_ms": 92.67558300000012,
-          "p99_ms": 100.85047870000032,
-          "max_ms": 103.2980410000004
+          "p50_ms": 78.80374999999873,
+          "p90_ms": 83.34841699999984,
+          "p95_ms": 88.92372899999934,
+          "p99_ms": 94.39677940000006,
+          "max_ms": 94.83554200000022
         }
       },
       "records": [
@@ -109,7 +110,7 @@
           "status": "SUCCESS",
           "error_px": 2.0,
           "confidence": null,
-          "latency_ms": 95.13950000000015,
+          "latency_ms": 84.47445799999898,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -124,7 +125,7 @@
           "status": "SUCCESS",
           "error_px": 0.0,
           "confidence": null,
-          "latency_ms": 88.1328330000013,
+          "latency_ms": 78.47016699999898,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -139,7 +140,7 @@
           "status": "SUCCESS",
           "error_px": 0.0,
           "confidence": null,
-          "latency_ms": 87.80141599999958,
+          "latency_ms": 78.05941700000041,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -154,7 +155,7 @@
           "status": "SUCCESS",
           "error_px": 108.18964830333815,
           "confidence": null,
-          "latency_ms": 88.35137500000023,
+          "latency_ms": 78.19683399999988,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -169,7 +170,7 @@
           "status": "SUCCESS",
           "error_px": 108.2081327812286,
           "confidence": null,
-          "latency_ms": 87.95662500000034,
+          "latency_ms": 78.08941600000097,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -184,7 +185,7 @@
           "status": "SUCCESS",
           "error_px": 116.0,
           "confidence": null,
-          "latency_ms": 88.65291699999922,
+          "latency_ms": 78.44150000000027,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -199,7 +200,7 @@
           "status": "SUCCESS",
           "error_px": 113.14592347937243,
           "confidence": null,
-          "latency_ms": 90.21166600000008,
+          "latency_ms": 78.14858400000091,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -214,7 +215,7 @@
           "status": "SUCCESS",
           "error_px": 109.98636279102969,
           "confidence": null,
-          "latency_ms": 88.90462499999963,
+          "latency_ms": 83.34841699999984,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -229,7 +230,7 @@
           "status": "SUCCESS",
           "error_px": 0.0,
           "confidence": null,
-          "latency_ms": 87.6911249999992,
+          "latency_ms": 79.04404200000137,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -244,7 +245,7 @@
           "status": "SUCCESS",
           "error_px": 82.75868534480233,
           "confidence": null,
-          "latency_ms": 88.79645800000091,
+          "latency_ms": 80.35320900000009,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -259,7 +260,7 @@
           "status": "SUCCESS",
           "error_px": 109.62207806824317,
           "confidence": null,
-          "latency_ms": 88.83408300000006,
+          "latency_ms": 79.43954099999928,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -274,7 +275,7 @@
           "status": "SUCCESS",
           "error_px": 0.0,
           "confidence": null,
-          "latency_ms": 88.13041600000027,
+          "latency_ms": 78.19979200000127,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -289,7 +290,7 @@
           "status": "SUCCESS",
           "error_px": 111.01801655587259,
           "confidence": null,
-          "latency_ms": 88.32537499999837,
+          "latency_ms": 78.81266700000111,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -304,7 +305,7 @@
           "status": "SUCCESS",
           "error_px": 0.0,
           "confidence": null,
-          "latency_ms": 88.06466699999937,
+          "latency_ms": 79.40137499999977,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -319,7 +320,7 @@
           "status": "SUCCESS",
           "error_px": 115.26057435220423,
           "confidence": null,
-          "latency_ms": 88.2745000000007,
+          "latency_ms": 93.3729999999997,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -334,7 +335,7 @@
           "status": "SUCCESS",
           "error_px": 2.23606797749979,
           "confidence": null,
-          "latency_ms": 87.58729100000018,
+          "latency_ms": 80.66266600000027,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -349,7 +350,7 @@
           "status": "SUCCESS",
           "error_px": 0.0,
           "confidence": null,
-          "latency_ms": 88.93462500000027,
+          "latency_ms": 78.39000000000063,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -364,7 +365,7 @@
           "status": "SUCCESS",
           "error_px": 1.0,
           "confidence": null,
-          "latency_ms": 87.36391699999935,
+          "latency_ms": 78.54758299999887,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -379,7 +380,7 @@
           "status": "SUCCESS",
           "error_px": 4.47213595499958,
           "confidence": null,
-          "latency_ms": 88.70804200000038,
+          "latency_ms": 78.63874999999965,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -394,7 +395,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 88.37695800000134,
+          "latency_ms": 79.02966600000028,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -409,7 +410,7 @@
           "status": "SUCCESS",
           "error_px": 0.0,
           "confidence": null,
-          "latency_ms": 87.70774999999986,
+          "latency_ms": 79.04916699999909,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -424,7 +425,7 @@
           "status": "SUCCESS",
           "error_px": 2.23606797749979,
           "confidence": null,
-          "latency_ms": 88.18562499999949,
+          "latency_ms": 78.65720899999928,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -439,7 +440,7 @@
           "status": "SUCCESS",
           "error_px": 2.0,
           "confidence": null,
-          "latency_ms": 89.03966699999977,
+          "latency_ms": 79.35133299999997,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -454,7 +455,7 @@
           "status": "SUCCESS",
           "error_px": 2.23606797749979,
           "confidence": null,
-          "latency_ms": 87.80620900000002,
+          "latency_ms": 78.93179199999878,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -469,7 +470,7 @@
           "status": "SUCCESS",
           "error_px": 0.0,
           "confidence": null,
-          "latency_ms": 88.46458300000037,
+          "latency_ms": 78.60479100000006,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -484,7 +485,7 @@
           "status": "SUCCESS",
           "error_px": 2.0,
           "confidence": null,
-          "latency_ms": 87.74104100000102,
+          "latency_ms": 78.8009590000005,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -499,7 +500,7 @@
           "status": "SUCCESS",
           "error_px": 4.123105625617661,
           "confidence": null,
-          "latency_ms": 88.29220800000037,
+          "latency_ms": 78.52145899999918,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -514,7 +515,7 @@
           "status": "SUCCESS",
           "error_px": 0.0,
           "confidence": null,
-          "latency_ms": 87.2672080000001,
+          "latency_ms": 78.80374999999873,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -529,7 +530,7 @@
           "status": "SUCCESS",
           "error_px": 2.23606797749979,
           "confidence": null,
-          "latency_ms": 87.88245900000113,
+          "latency_ms": 78.66729200000044,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -544,7 +545,7 @@
           "status": "SUCCESS",
           "error_px": 1.0,
           "confidence": null,
-          "latency_ms": 88.00941600000023,
+          "latency_ms": 79.0029170000004,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -559,7 +560,7 @@
           "status": "SUCCESS",
           "error_px": 86.81589716175259,
           "confidence": null,
-          "latency_ms": 103.2980410000004,
+          "latency_ms": 94.83554200000022,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -587,11 +588,11 @@
           "p10": null
         },
         "latency": {
-          "p50_ms": 88.02635400000014,
-          "p90_ms": 88.89343359999948,
-          "p95_ms": 89.20530855000005,
-          "p99_ms": 89.73348579000164,
-          "max_ms": 89.85970800000231
+          "p50_ms": 79.03016650000083,
+          "p90_ms": 79.87654579999948,
+          "p95_ms": 79.95782240000064,
+          "p99_ms": 79.97632349999901,
+          "max_ms": 79.98016599999858
         }
       },
       "adversarial": {
@@ -614,11 +615,11 @@
           "p10": null
         },
         "latency": {
-          "p50_ms": 103.51475000000221,
-          "p90_ms": 103.51475000000221,
-          "p95_ms": 103.51475000000221,
-          "p99_ms": 103.51475000000221,
-          "max_ms": 103.51475000000221
+          "p50_ms": 93.36187499999937,
+          "p90_ms": 93.36187499999937,
+          "p95_ms": 93.36187499999937,
+          "p99_ms": 93.36187499999937,
+          "max_ms": 93.36187499999937
         }
       },
       "all": {
@@ -641,11 +642,11 @@
           "p10": null
         },
         "latency": {
-          "p50_ms": 88.06312500000146,
-          "p90_ms": 88.93745800000019,
-          "p95_ms": 89.64208350000114,
-          "p99_ms": 99.41823740000223,
-          "max_ms": 103.51475000000221
+          "p50_ms": 79.03954100000021,
+          "p90_ms": 79.94670800000137,
+          "p95_ms": 79.97354099999932,
+          "p99_ms": 89.34736229999912,
+          "max_ms": 93.36187499999937
         }
       },
       "records": [
@@ -659,7 +660,7 @@
           "status": "SUCCESS",
           "error_px": 2.0,
           "confidence": null,
-          "latency_ms": 88.77408300000056,
+          "latency_ms": 79.38729199999983,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -674,7 +675,7 @@
           "status": "SUCCESS",
           "error_px": 0.0,
           "confidence": null,
-          "latency_ms": 88.06312500000146,
+          "latency_ms": 78.83179099999893,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -689,7 +690,7 @@
           "status": "SUCCESS",
           "error_px": 0.0,
           "confidence": null,
-          "latency_ms": 87.65658299999757,
+          "latency_ms": 78.26066699999856,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -704,7 +705,7 @@
           "status": "SUCCESS",
           "error_px": 108.18964830333815,
           "confidence": null,
-          "latency_ms": 87.98958299999882,
+          "latency_ms": 79.41783300000083,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -719,7 +720,7 @@
           "status": "SUCCESS",
           "error_px": 108.2081327812286,
           "confidence": null,
-          "latency_ms": 87.93849999999992,
+          "latency_ms": 79.1864579999988,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -734,7 +735,7 @@
           "status": "SUCCESS",
           "error_px": 116.0,
           "confidence": null,
-          "latency_ms": 88.93745800000019,
+          "latency_ms": 79.98016599999858,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -749,7 +750,7 @@
           "status": "SUCCESS",
           "error_px": 113.14592347937243,
           "confidence": null,
-          "latency_ms": 88.6227919999989,
+          "latency_ms": 79.64725000000072,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -764,7 +765,7 @@
           "status": "SUCCESS",
           "error_px": 109.98636279102969,
           "confidence": null,
-          "latency_ms": 88.8885419999994,
+          "latency_ms": 79.94670800000137,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -779,7 +780,7 @@
           "status": "SUCCESS",
           "error_px": 0.0,
           "confidence": null,
-          "latency_ms": 87.75937499999742,
+          "latency_ms": 79.32054099999775,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -794,7 +795,7 @@
           "status": "SUCCESS",
           "error_px": 60.92618484691127,
           "confidence": null,
-          "latency_ms": 89.42445899999996,
+          "latency_ms": 79.7036250000005,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -809,7 +810,7 @@
           "status": "SUCCESS",
           "error_px": 109.62207806824317,
           "confidence": null,
-          "latency_ms": 88.82108299999913,
+          "latency_ms": 79.55683399999813,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -824,7 +825,7 @@
           "status": "SUCCESS",
           "error_px": 0.0,
           "confidence": null,
-          "latency_ms": 88.16937500000321,
+          "latency_ms": 79.96691600000005,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -839,7 +840,7 @@
           "status": "SUCCESS",
           "error_px": 111.01801655587259,
           "confidence": null,
-          "latency_ms": 88.10791700000209,
+          "latency_ms": 79.35412500000183,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -854,7 +855,7 @@
           "status": "SUCCESS",
           "error_px": 0.0,
           "confidence": null,
-          "latency_ms": 87.97529199999943,
+          "latency_ms": 79.5790409999988,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -869,7 +870,7 @@
           "status": "SUCCESS",
           "error_px": 115.26057435220423,
           "confidence": null,
-          "latency_ms": 87.62312500000036,
+          "latency_ms": 78.8414589999995,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -884,7 +885,7 @@
           "status": "SUCCESS",
           "error_px": 2.23606797749979,
           "confidence": null,
-          "latency_ms": 89.85970800000231,
+          "latency_ms": 78.47008299999914,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -899,7 +900,7 @@
           "status": "SUCCESS",
           "error_px": 0.0,
           "confidence": null,
-          "latency_ms": 87.56300000000294,
+          "latency_ms": 79.73179100000038,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -914,7 +915,7 @@
           "status": "SUCCESS",
           "error_px": 1.0,
           "confidence": null,
-          "latency_ms": 87.94058300000174,
+          "latency_ms": 79.02079200000145,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -929,7 +930,7 @@
           "status": "SUCCESS",
           "error_px": 4.47213595499958,
           "confidence": null,
-          "latency_ms": 88.8812080000001,
+          "latency_ms": 79.03954100000021,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -944,7 +945,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 88.18462500000024,
+          "latency_ms": 78.74483299999824,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -959,7 +960,7 @@
           "status": "SUCCESS",
           "error_px": 0.0,
           "confidence": null,
-          "latency_ms": 87.74358400000182,
+          "latency_ms": 78.78229099999956,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -974,7 +975,7 @@
           "status": "SUCCESS",
           "error_px": 2.23606797749979,
           "confidence": null,
-          "latency_ms": 87.89591700000088,
+          "latency_ms": 78.73429099999996,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -989,7 +990,7 @@
           "status": "SUCCESS",
           "error_px": 2.0,
           "confidence": null,
-          "latency_ms": 88.61133299999935,
+          "latency_ms": 79.86874999999927,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -1004,7 +1005,7 @@
           "status": "SUCCESS",
           "error_px": 2.23606797749979,
           "confidence": null,
-          "latency_ms": 87.70554199999836,
+          "latency_ms": 78.07762499999882,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -1019,7 +1020,7 @@
           "status": "SUCCESS",
           "error_px": 0.0,
           "confidence": null,
-          "latency_ms": 87.5533329999989,
+          "latency_ms": 78.77591700000153,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -1034,7 +1035,7 @@
           "status": "SUCCESS",
           "error_px": 2.0,
           "confidence": null,
-          "latency_ms": 87.80233399999915,
+          "latency_ms": 78.7708330000001,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -1049,7 +1050,7 @@
           "status": "SUCCESS",
           "error_px": 4.123105625617661,
           "confidence": null,
-          "latency_ms": 88.068707999998,
+          "latency_ms": 78.69358399999982,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -1064,7 +1065,7 @@
           "status": "SUCCESS",
           "error_px": 0.0,
           "confidence": null,
-          "latency_ms": 87.81375000000224,
+          "latency_ms": 78.49683399999918,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -1079,7 +1080,7 @@
           "status": "SUCCESS",
           "error_px": 2.23606797749979,
           "confidence": null,
-          "latency_ms": 87.25712499999716,
+          "latency_ms": 78.58083300000018,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -1094,7 +1095,7 @@
           "status": "SUCCESS",
           "error_px": 1.0,
           "confidence": null,
-          "latency_ms": 88.39616600000255,
+          "latency_ms": 78.51962499999843,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -1109,7 +1110,7 @@
           "status": "SUCCESS",
           "error_px": 86.81589716175259,
           "confidence": null,
-          "latency_ms": 103.51475000000221,
+          "latency_ms": 93.36187499999937,
           "diagnostics": {
             "method": "single_scale_fft_zncc"
           }
@@ -1137,11 +1138,11 @@
           "p10": null
         },
         "latency": {
-          "p50_ms": 43.67420849999881,
-          "p90_ms": 44.0149541999979,
-          "p95_ms": 44.08895015000098,
-          "p99_ms": 44.30220874999925,
-          "max_ms": 44.384749999998974
+          "p50_ms": 43.607312499997164,
+          "p90_ms": 43.976871200000645,
+          "p95_ms": 44.047356549999606,
+          "p99_ms": 44.31341106999991,
+          "max_ms": 44.40966700000004
         }
       },
       "adversarial": {
@@ -1164,11 +1165,11 @@
           "p10": null
         },
         "latency": {
-          "p50_ms": 95.08008399999923,
-          "p90_ms": 95.08008399999923,
-          "p95_ms": 95.08008399999923,
-          "p99_ms": 95.08008399999923,
-          "max_ms": 95.08008399999923
+          "p50_ms": 94.79225000000113,
+          "p90_ms": 94.79225000000113,
+          "p95_ms": 94.79225000000113,
+          "p99_ms": 94.79225000000113,
+          "max_ms": 94.79225000000113
         }
       },
       "all": {
@@ -1191,11 +1192,11 @@
           "p10": null
         },
         "latency": {
-          "p50_ms": 43.67733399999807,
-          "p90_ms": 44.075292000002264,
-          "p95_ms": 44.242437499999454,
-          "p99_ms": 79.87148379999911,
-          "max_ms": 95.08008399999923
+          "p50_ms": 43.63270799999697,
+          "p90_ms": 44.010208999999634,
+          "p95_ms": 44.24370849999981,
+          "p99_ms": 79.67747510000078,
+          "max_ms": 94.79225000000113
         }
       },
       "records": [
@@ -1209,7 +1210,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 44.384749999998974,
+          "latency_ms": 44.40966700000004,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": -1.5,
@@ -1226,7 +1227,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.991166999997944,
+          "latency_ms": 44.07774999999958,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": -1.5,
@@ -1243,7 +1244,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 44.00824999999742,
+          "latency_ms": 43.777291000001384,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": 3.0,
@@ -1260,7 +1261,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.67733399999807,
+          "latency_ms": 43.68916700000014,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": -3.0,
@@ -1277,7 +1278,7 @@
           "status": "SUCCESS",
           "error_px": 113.17243480636087,
           "confidence": null,
-          "latency_ms": 43.92708299999981,
+          "latency_ms": 43.954624999997804,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": 0.0,
@@ -1294,7 +1295,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 44.075292000002264,
+          "latency_ms": 43.97316700000076,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": 0.0,
@@ -1311,7 +1312,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 44.100124999999935,
+          "latency_ms": 44.010208999999634,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": 3.0,
@@ -1328,7 +1329,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.730582999998546,
+          "latency_ms": 43.68149999999815,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": 3.0,
@@ -1345,7 +1346,7 @@
           "status": "SUCCESS",
           "error_px": 115.96551211459379,
           "confidence": null,
-          "latency_ms": 43.82262500000067,
+          "latency_ms": 43.83179199999887,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": 0.0,
@@ -1362,7 +1363,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.7782079999991,
+          "latency_ms": 43.683166999997525,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": -1.5,
@@ -1379,7 +1380,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.845624999999444,
+          "latency_ms": 43.70850000000104,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": -3.0,
@@ -1396,7 +1397,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.95333300000104,
+          "latency_ms": 43.91095800000144,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": 0.0,
@@ -1413,7 +1414,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.95074999999693,
+          "latency_ms": 43.88099999999895,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": 1.5,
@@ -1430,7 +1431,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.9225840000006,
+          "latency_ms": 43.83904099999825,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": 1.5,
@@ -1447,7 +1448,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.601083000002205,
+          "latency_ms": 43.63270799999697,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": -3.0,
@@ -1464,7 +1465,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.62129200000098,
+          "latency_ms": 43.54262500000061,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": -3.0,
@@ -1481,7 +1482,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.60341699999992,
+          "latency_ms": 43.540792000001716,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": 3.0,
@@ -1498,7 +1499,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.52845799999727,
+          "latency_ms": 43.47170900000208,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": -1.5,
@@ -1515,7 +1516,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.60966599999827,
+          "latency_ms": 43.4623330000008,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": 3.0,
@@ -1532,7 +1533,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.392665999999025,
+          "latency_ms": 43.428625000000665,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": -3.0,
@@ -1549,7 +1550,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.51866700000073,
+          "latency_ms": 43.57325000000145,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": -3.0,
@@ -1566,7 +1567,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.740749999997774,
+          "latency_ms": 43.56470800000167,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": -3.0,
@@ -1583,7 +1584,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.57412499999924,
+          "latency_ms": 43.449292000001805,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": 0.0,
@@ -1600,7 +1601,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.671082999999555,
+          "latency_ms": 43.56320800000191,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": -3.0,
@@ -1617,7 +1618,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.60262499999834,
+          "latency_ms": 43.54141700000014,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": 1.5,
@@ -1634,7 +1635,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.6092919999993,
+          "latency_ms": 43.475917000002084,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": 1.5,
@@ -1651,7 +1652,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.596791000002355,
+          "latency_ms": 43.52904199999941,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": 1.5,
@@ -1668,7 +1669,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.56054200000159,
+          "latency_ms": 43.58191699999736,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": -3.0,
@@ -1685,7 +1686,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.535166000001624,
+          "latency_ms": 43.43295900000044,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": -3.0,
@@ -1702,7 +1703,7 @@
           "status": "SUCCESS",
           "error_px": 2.8284271247461903,
           "confidence": null,
-          "latency_ms": 43.5939999999988,
+          "latency_ms": 43.376958000003185,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": -3.0,
@@ -1719,7 +1720,7 @@
           "status": "SUCCESS",
           "error_px": 636.3961030678928,
           "confidence": null,
-          "latency_ms": 95.08008399999923,
+          "latency_ms": 94.79225000000113,
           "diagnostics": {
             "method": "fft_zncc_plus_geometric_search",
             "angle_deg": -1.5,
@@ -1751,11 +1752,11 @@
           "p10": 0.5678952652778864
         },
         "latency": {
-          "p50_ms": 85.17372949999924,
-          "p90_ms": 90.13895830000077,
-          "p95_ms": 105.49587919999723,
-          "p99_ms": 108.31054610999814,
-          "max_ms": 109.1109579999987
+          "p50_ms": 87.01991699999745,
+          "p90_ms": 92.1724327,
+          "p95_ms": 107.38114605000106,
+          "p99_ms": 109.61656311000056,
+          "max_ms": 110.24587500000038
         }
       },
       "adversarial": {
@@ -1778,11 +1779,11 @@
           "p10": 0.45846843953027727
         },
         "latency": {
-          "p50_ms": 136.5139169999985,
-          "p90_ms": 136.5139169999985,
-          "p95_ms": 136.5139169999985,
-          "p99_ms": 136.5139169999985,
-          "max_ms": 136.5139169999985
+          "p50_ms": 138.14945900000097,
+          "p90_ms": 138.14945900000097,
+          "p95_ms": 138.14945900000097,
+          "p99_ms": 138.14945900000097,
+          "max_ms": 138.14945900000097
         }
       },
       "all": {
@@ -1807,11 +1808,11 @@
           "p10": 0.539028594746242
         },
         "latency": {
-          "p50_ms": 85.23329199999807,
-          "p90_ms": 104.4508329999978,
-          "p95_ms": 107.73093749999774,
-          "p99_ms": 128.29302929999852,
-          "max_ms": 136.5139169999985
+          "p50_ms": 87.02062499999741,
+          "p90_ms": 106.53208300000117,
+          "p95_ms": 109.16085450000068,
+          "p99_ms": 129.77838380000077,
+          "max_ms": 138.14945900000097
         }
       },
       "records": [
@@ -1825,7 +1826,7 @@
           "status": "SUCCESS",
           "error_px": 0.0,
           "confidence": 0.7306738032030309,
-          "latency_ms": 88.54875000000106,
+          "latency_ms": 90.13374999999968,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -2022,7 +2023,7 @@
           "status": "SUCCESS",
           "error_px": 0.5551299556704244,
           "confidence": 0.8054298093544687,
-          "latency_ms": 87.64566700000032,
+          "latency_ms": 89.35966700000009,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -2219,7 +2220,7 @@
           "status": "AMBIGUOUS",
           "error_px": 0.0,
           "confidence": 0.4783187924335076,
-          "latency_ms": 86.28729199999796,
+          "latency_ms": 88.16975000000227,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -2416,7 +2417,7 @@
           "status": "SUCCESS",
           "error_px": 0.15887209616951337,
           "confidence": 0.8950942991303648,
-          "latency_ms": 73.56812499999776,
+          "latency_ms": 75.47120799999973,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -2599,7 +2600,7 @@
           "status": "LOW_CONFIDENCE",
           "error_px": 3.1622776601683795,
           "confidence": 0.49860552683568726,
-          "latency_ms": 86.57291700000158,
+          "latency_ms": 88.40079099999798,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -2796,7 +2797,7 @@
           "status": "SUCCESS",
           "error_px": 0.0,
           "confidence": 0.7441956540571893,
-          "latency_ms": 109.1109579999987,
+          "latency_ms": 110.24587500000038,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -3014,7 +3015,7 @@
           "status": "SUCCESS",
           "error_px": 0.5128486021542787,
           "confidence": 0.9480108706282819,
-          "latency_ms": 74.69195899999903,
+          "latency_ms": 76.04408299999932,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -3197,7 +3198,7 @@
           "status": "SUCCESS",
           "error_px": 0.7071067811865476,
           "confidence": 0.8617089940237249,
-          "latency_ms": 74.58487499999933,
+          "latency_ms": 76.04091600000018,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -3380,7 +3381,7 @@
           "status": "SUCCESS",
           "error_px": 0.35391095248530935,
           "confidence": 0.8978626234459127,
-          "latency_ms": 87.12195799999733,
+          "latency_ms": 88.787583000002,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -3577,7 +3578,7 @@
           "status": "SUCCESS",
           "error_px": 0.7071067811865476,
           "confidence": 0.8708970559763158,
-          "latency_ms": 87.47033399999893,
+          "latency_ms": 89.17654200000058,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -3774,7 +3775,7 @@
           "status": "SUCCESS",
           "error_px": 0.7071067811865476,
           "confidence": 0.888421162776872,
-          "latency_ms": 75.89325000000002,
+          "latency_ms": 77.2297910000006,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -3957,7 +3958,7 @@
           "status": "SUCCESS",
           "error_px": 0.23933770218568734,
           "confidence": 0.895563573949262,
-          "latency_ms": 86.33433299999993,
+          "latency_ms": 88.05399999999963,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -4154,7 +4155,7 @@
           "status": "LOW_CONFIDENCE",
           "error_px": 2.0,
           "confidence": 0.7244595292080488,
-          "latency_ms": 88.2543329999983,
+          "latency_ms": 90.57691599999984,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -4351,7 +4352,7 @@
           "status": "SUCCESS",
           "error_px": 0.26853093176718207,
           "confidence": 0.8097527844833579,
-          "latency_ms": 87.46675000000081,
+          "latency_ms": 89.30020800000094,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -4548,7 +4549,7 @@
           "status": "SUCCESS",
           "error_px": 0.1524283934366062,
           "confidence": 0.8579497007655348,
-          "latency_ms": 73.1611249999986,
+          "latency_ms": 75.34333399999937,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -4731,7 +4732,7 @@
           "status": "SUCCESS",
           "error_px": 0.5040505262364681,
           "confidence": 0.6640555193649973,
-          "latency_ms": 85.1141670000004,
+          "latency_ms": 87.01920899999749,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -4928,7 +4929,7 @@
           "status": "SUCCESS",
           "error_px": 2.0,
           "confidence": 0.539028594746242,
-          "latency_ms": 85.67254200000107,
+          "latency_ms": 87.8055840000016,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -5125,7 +5126,7 @@
           "status": "SUCCESS",
           "error_px": 3.788308467895499,
           "confidence": 0.7650650478024329,
-          "latency_ms": 104.4508329999978,
+          "latency_ms": 106.53208300000117,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -5343,7 +5344,7 @@
           "status": "SUCCESS",
           "error_px": 0.7071067811865476,
           "confidence": 0.7777567362415041,
-          "latency_ms": 72.89116599999801,
+          "latency_ms": 74.68233300000193,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -5526,7 +5527,7 @@
           "status": "SUCCESS",
           "error_px": 0.13388655771625366,
           "confidence": 0.796173162572309,
-          "latency_ms": 72.40575000000149,
+          "latency_ms": 74.52108300000049,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -5709,7 +5710,7 @@
           "status": "SUCCESS",
           "error_px": 0.41452515927982825,
           "confidence": 0.7914287118243422,
-          "latency_ms": 72.26845799999992,
+          "latency_ms": 74.49329199999966,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -5892,7 +5893,7 @@
           "status": "SUCCESS",
           "error_px": 0.5504134117537312,
           "confidence": 0.8668566821145262,
-          "latency_ms": 85.02341599999852,
+          "latency_ms": 86.9370420000024,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -6089,7 +6090,7 @@
           "status": "SUCCESS",
           "error_px": 0.4078604132122972,
           "confidence": 0.8605892045425619,
-          "latency_ms": 106.35091699999677,
+          "latency_ms": 108.07583400000098,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -6307,7 +6308,7 @@
           "status": "SUCCESS",
           "error_px": 0.5126649998736681,
           "confidence": 0.6834946660327161,
-          "latency_ms": 85.50058299999819,
+          "latency_ms": 87.80020900000096,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -6504,7 +6505,7 @@
           "status": "SUCCESS",
           "error_px": 2.5495097567963922,
           "confidence": 0.7697195615752547,
-          "latency_ms": 84.78741600000106,
+          "latency_ms": 86.57245799999913,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -6701,7 +6702,7 @@
           "status": "SUCCESS",
           "error_px": 0.40319153249944023,
           "confidence": 0.8871158717202391,
-          "latency_ms": 85.23329199999807,
+          "latency_ms": 87.02062499999741,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -6898,7 +6899,7 @@
           "status": "SUCCESS",
           "error_px": 1.0,
           "confidence": 0.5711026731147357,
-          "latency_ms": 84.98254099999869,
+          "latency_ms": 86.88354099999884,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -7095,7 +7096,7 @@
           "status": "SUCCESS",
           "error_px": 3.5355339059327378,
           "confidence": 0.7720551428759735,
-          "latency_ms": 72.20799999999983,
+          "latency_ms": 74.20037500000021,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -7278,7 +7279,7 @@
           "status": "SUCCESS",
           "error_px": 0.5380262454264455,
           "confidence": 0.9262864975260938,
-          "latency_ms": 72.7107920000023,
+          "latency_ms": 74.85933299999914,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -7461,7 +7462,7 @@
           "status": "SUCCESS",
           "error_px": 0.500858540098362,
           "confidence": 0.8310041246937956,
-          "latency_ms": 72.4814589999987,
+          "latency_ms": 74.2836670000031,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -7644,7 +7645,7 @@
           "status": "AMBIGUOUS",
           "error_px": 21.93171219946131,
           "confidence": 0.45846843953027727,
-          "latency_ms": 136.5139169999985,
+          "latency_ms": 138.14945900000097,
           "diagnostics": {
             "official_path": "fft_zncc_geometric_search_subpixel",
             "confidence_kind": "heuristic_not_calibrated_probability",
@@ -7855,11 +7856,11 @@
             "p10": null
           },
           "latency": {
-            "p50_ms": 85.65506199999895,
-            "p90_ms": 89.60658720000015,
-            "p95_ms": 105.71599999999978,
-            "p99_ms": 107.83373732000008,
-            "max_ms": 108.20154199999976
+            "p50_ms": 85.35743700000076,
+            "p90_ms": 89.55246670000182,
+            "p95_ms": 106.42743575000003,
+            "p99_ms": 111.57773628999955,
+            "max_ms": 112.89854099999985
           }
         }
       },
@@ -7884,11 +7885,11 @@
             "p10": null
           },
           "latency": {
-            "p50_ms": 17.55620850000028,
-            "p90_ms": 18.160412199998888,
-            "p95_ms": 18.3428937500004,
-            "p99_ms": 18.670268750001924,
-            "max_ms": 18.795875000002127
+            "p50_ms": 17.409707999998858,
+            "p90_ms": 18.121079099998383,
+            "p95_ms": 18.273351599997767,
+            "p99_ms": 18.39834049999851,
+            "max_ms": 18.434082999998935
           }
         }
       }

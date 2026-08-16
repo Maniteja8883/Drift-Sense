@@ -31,6 +31,15 @@ def _git_commit(root: Path) -> str:
         return "unavailable"
 
 
+def _git_worktree_dirty(root: Path) -> bool:
+    try:
+        status = subprocess.check_output(["git", "status", "--porcelain"], cwd=root,
+                                         text=True, stderr=subprocess.DEVNULL)
+        return bool(status.strip())
+    except Exception:
+        return True
+
+
 def _percentiles(values: List[float]) -> Dict[str, float]:
     if not values:
         return {"p50_ms": 0.0, "p90_ms": 0.0, "p95_ms": 0.0, "p99_ms": 0.0, "max_ms": 0.0}
@@ -179,6 +188,7 @@ def evaluate_manifest(manifest: str, root: Path) -> Dict:
         "cpu_count": os.cpu_count(),
         "accelerator": "CPU; official path does not use GPU",
         "git_commit": _git_commit(root),
+        "git_worktree_dirty_at_benchmark": _git_worktree_dirty(root),
         "latency_method": "time.perf_counter around in-memory prediction; image IO excluded",
         "accuracy_method": "Euclidean search-image-pixel error against manifest ground truth",
     }
@@ -217,7 +227,8 @@ def write_artifacts(results: Dict, results_dir: Path) -> None:
                                 "p90_error_px": m["p90_error_px"],
                                 "p50_latency_ms": m["latency"]["p50_ms"]})
     with (results_dir / "benchmark_30.csv").open("w", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(comparison_rows[0].keys()))
+        writer = csv.DictWriter(handle, fieldnames=list(comparison_rows[0].keys()),
+                                lineterminator="\n")
         writer.writeheader()
         writer.writerows(comparison_rows)
     official = final["in_distribution"]

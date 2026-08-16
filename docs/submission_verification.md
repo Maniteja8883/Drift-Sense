@@ -15,4 +15,3 @@ python scripts/run_benchmark.py
 The frozen requirements comparison matched the committed `requirements.txt`. The standalone generator created three DRAM pairs and `benchmark_ground_truth.csv`. The evaluator-facing inference script exited successfully and printed exactly two finite coordinate tokens. The same inference command was run from `/tmp` with absolute script and image paths, and it produced the same coordinate-only stdout format. The clean environment installed `requirements.txt`, then passed the same standalone inference test and all 11 tests.
 
 The official path is classical FFT-ZNCC, so model weights and a training script are not submission dependencies. The retained PyTorch code is explicitly experimental and cannot affect `inference.py`.
-

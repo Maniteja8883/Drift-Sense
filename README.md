@@ -1,8 +1,24 @@
-# Drift-Sense
+# Drift-Sense: Deterministic Semiconductor Image Localization
 
 Deterministic semiconductor image localization for recovering a known inspection site under small stage drift, scale/rotation mismatch, and periodic visual ambiguity.
 
 ![Annotated demo result](examples/result.png)
+
+## One-sentence value proposition
+
+Drift-Sense localizes a high-resolution semiconductor reference inside a lower-resolution search frame with a reproducible classical FFT-ZNCC pipeline and explicit uncertainty reporting.
+
+## Problem
+
+Wafer inspection tools revisit known sites after the motion stage has moved. Thermal drift, vibration, backlash, and acquisition differences can move the observed site by several pixels. Returning to the correct site is difficult because semiconductor layouts contain repeated structures that can produce convincing matches at the wrong location.
+
+## Why it's hard
+
+The reference and search images use different pixel scales, while the observed feature can change under small rotation, scale, brightness, shot-noise, charging, and scanline effects. Periodic structures can create several near-equal correlation peaks, so the highest score alone is not a sufficient correctness signal.
+
+## Solution overview
+
+The official implementation uses a coarse-to-fine classical pipeline: FFT-ZNCC finds candidate locations, a bounded rotation/scale grid handles acquisition geometry, the documented center prior resolves challenge-scoped near-ties, and a subpixel parabola refines the winning peak. The result also exposes heuristic confidence and `SUCCESS`, `AMBIGUOUS`, `LOW_CONFIDENCE`, or `OUT_OF_DISTRIBUTION` status through the package API.
 
 ## What is the official system?
 
@@ -26,6 +42,9 @@ Python 3.9+ is supported. The official path needs only NumPy and Pillow:
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+python inference.py --reference examples/reference.png \
+  --search examples/search.png
+# expected stdout: 499.5000 499.5000
 python scripts/run_demo.py
 python -m pytest -q
 python scripts/run_benchmark.py
@@ -65,7 +84,7 @@ python /absolute/path/to/drift_sense/inference.py \
   --search /absolute/path/to/drift_sense/examples/search.png
 ```
 
-Only the coordinate line goes to stdout. Diagnostics are opt-in via `--time` and go to stderr; the richer `scripts/run_demo.py` is for human-readable status/confidence output.
+Only the coordinate line goes to stdout. Errors go to stderr; the richer `scripts/run_demo.py` is for human-readable status/confidence output.
 
 The strict challenge-compatible wrapper prints only coordinates:
 
@@ -100,6 +119,19 @@ python scripts/run_benchmark.py
 ```
 
 The committed [`results/benchmark_summary.md`](results/benchmark_summary.md) and [`results/benchmark_30.json`](results/benchmark_30.json) are the source of truth for measured values. The benchmark reports Acc@1px/3px/5px, median/mean/P90/P95 error, P50/P90/P95/P99/max latency, method comparisons, status counts, and environment metadata. Results are scoped to this synthetic dataset and recorded CPU; they are not industrial SEM validation.
+
+Verified in-distribution results from the current stored artifact:
+
+| Metric | Result |
+|---|---:|
+| Acc@1px | 80.00% |
+| Acc@5px | 100.00% |
+| Median error | 0.513 px |
+| P90 error | 2.611 px |
+| P50 latency | 87.02 ms |
+| P99 latency | 109.62 ms |
+
+Environment: Python 3.9.6, NumPy 1.26.4, Pillow 10.4.0, macOS arm64 CPU. The adversarial periodic sample is reported separately as `AMBIGUOUS` and is excluded from the in-distribution accuracy claim.
 
 ## Baseline comparison
 
@@ -145,6 +177,8 @@ The default coordinate geometry is 1 nm/pixel reference, 10 nm/pixel search, and
 ## Project structure
 
 ```text
+inference.py           public evaluator API: prints only x y
+dataset_generator.py   standalone deterministic pair generator
 src/drift_sense/       official package: geometry, matching, pipeline, diagnostics, dataset
 baseline/              reusable FFT-ZNCC baseline
 benchmark/              metric, comparison, and artifact generation code
@@ -155,6 +189,10 @@ examples/               deterministic input pair and annotated output
 results/                verified benchmark artifacts
 experimental/ml/        retained PyTorch research implementation, not official
 ```
+
+## References
+
+See [`docs/references.md`](docs/references.md) for stable presentation numbering: [1] SEM image formation and shot-noise context, [2] charging/image defects, [3] FFT-normalized cross-correlation, and [4] coarse-to-fine signal-processing context.
 
 ## Limitations and future work
 

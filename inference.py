@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import argparse
 import sys
-import time
 from pathlib import Path
 from typing import List, Optional, Tuple
 
@@ -25,15 +24,14 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser = argparse.ArgumentParser(description="Drift-Sense official localization")
     parser.add_argument("--reference", required=True)
     parser.add_argument("--search", required=True)
-    parser.add_argument("--time", action="store_true")
     args = parser.parse_args(argv)
-    start = time.perf_counter()
-    x, y, score = predict_xy(args.reference, args.search)
-    print(f"{x:.4f} {y:.4f}")
-    if args.time:
-        print(f"[latency {(time.perf_counter() - start) * 1000.0:.2f} ms | score {score:.4f}]",
-              file=sys.stderr)
-    return 0
+    try:
+        x, y, _ = predict_xy(args.reference, args.search)
+        print(f"{x:.4f} {y:.4f}")
+        return 0
+    except Exception as exc:
+        print(f"Drift-Sense inference failed: {exc}", file=sys.stderr)
+        return 1
 
 
 if __name__ == "__main__":
