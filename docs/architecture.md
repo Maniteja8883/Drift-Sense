@@ -1,30 +1,44 @@
 # Architecture
 
-## Official path
+## Decision in one sentence
 
-`LocalizationEngine` in `src/drift_sense/pipeline.py` is the only implementation used by the demo and canonical benchmark.
+The only official system is a deterministic classical FFT-ZNCC localization pipeline; the retained PyTorch implementation is experimental and cannot affect inference or benchmark results.
 
-1. Load 1000×1000 grayscale reference and search images.
-2. Area-average the 1000-pixel reference by 10× to obtain a 100×100 search-space template.
-3. Search a 4× downsampled frame over a 5-angle × 3-scale grid using FFT-ZNCC.
-4. Apply NMS and the challenge-specific center-prior tie-break to select a coarse ROI.
-5. Search a full-resolution ROI over the neighboring transform grid.
-6. Refine the winning correlation peak with a bounded three-point parabola.
-7. Report coordinates plus heuristic confidence, ambiguity evidence, and status.
+## Official data flow
 
-The output coordinate is `top_left + (template_size - 1)/2`. For the default 100×100 template this is `top_left + 49.5`; the value is derived in `geometry.py` and covered by tests.
+`inference.py` loads two grayscale images and calls `LocalizationEngine.predict_arrays()` from `src/drift_sense/pipeline.py`:
 
-## Components
+1. Validate that both images are finite 1000×1000 arrays.
+2. Area-average the reference by 10× to obtain a 100×100 template in search-image pixels.
+3. Downsample the search and template by 4× for a cheap coarse pass.
+4. Evaluate FFT-ZNCC over five rotations and three scales.
+5. Find local maxima, apply NMS, and use the documented center prior for configured ties/fallbacks.
+6. Crop a full-resolution ROI around the coarse candidate.
+7. Search the neighboring transform grid in that ROI.
+8. Refine the winning peak with bounded three-point parabolas.
+9. Convert top-left coordinates to template-center coordinates and classify evidence as `SUCCESS`, `AMBIGUOUS`, `LOW_CONFIDENCE`, or `OUT_OF_DISTRIBUTION`.
+
+The public wrapper prints only `x y`. The package API and demo expose the score, heuristic confidence, status, latency, and diagnostics.
+
+## Component evidence
 
 | Component | Problem solved | Evidence | Reproduction |
 |---|---|---|---|
-| FFT-ZNCC | Robust similarity under gain/bias changes | direct-ZNCC unit comparison | `pytest -q` |
-| Rotation/scale grid | Small acquisition geometry changes | measured baseline comparison | `python scripts/run_benchmark.py` |
-| Center-prior tie-break | Challenge rule for near-equal periodic candidates | baseline and assumption ablation | benchmark JSON |
-| Subpixel parabola | Fractional peak placement | synthetic fractional-peak test | `pytest -q` |
-| Ambiguity diagnostics | Avoid hiding periodic ties | adversarial partition/status records | benchmark JSON |
+| Area downsampling | Maps reference resolution into search coordinates | geometry and shape tests | `python -m pytest tests/test_geometry.py -v` |
+| FFT-ZNCC | Measures local similarity while reducing brightness/contrast sensitivity | direct reference comparison and score-range tests | `python -m pytest tests/test_matching.py -v` |
+| Rotation/scale grid | Handles bounded acquisition geometry mismatch | baseline comparison artifact | `python scripts/run_benchmark.py` |
+| Peak finding/NMS | Retains separated candidates while suppressing duplicate neighbors | overlapping/separated peak tests | `python -m pytest tests/test_matching.py -v` |
+| Center-prior tie-break | Uses the challenge’s near-center rule for genuine score ties | assumption and baseline evidence | `docs/assumptions.md`, benchmark JSON |
+| Subpixel refinement | Estimates a fractional peak rather than returning only an integer | synthetic fractional-peak tests | `python -m pytest tests/test_refinement.py -v` |
+| Ambiguity diagnostics | Avoids presenting periodic ties as certain matches | adversarial status record | `python scripts/run_benchmark.py` |
+| Confidence heuristic | Provides a bounded ranking signal for downstream review | benchmark confidence/status counts | `results/benchmark_30.json` |
 
-## Experimental path
+## Why coarse-to-fine?
 
-The original PyTorch architecture is in `experimental/ml/`. It is intentionally not imported by the official package, has no committed trained checkpoint, and is not used for the reported results.
+An exhaustive full-resolution geometric search would spend the most computation at every possible position. The coarse pass reduces the candidate region and transform neighborhood; the fine pass then recovers accuracy where it matters. This is a predictable engineering tradeoff: less computation than a full dense search, with explicit bounds that define the supported operating envelope.
 
+## Official versus experimental
+
+The official path is implemented in `src/drift_sense/` and is used by `inference.py`, `scripts/run_demo.py`, and `scripts/run_benchmark.py`. No weights, training data, or PyTorch installation are required.
+
+The original learned code is preserved under `experimental/ml/`. It has no verified checkpoint and no evidence that justifies selecting it for the submission path. It is labeled experimental, is not imported by the official package, and is excluded from official benchmark claims.
