@@ -92,14 +92,16 @@ The complete machine-readable artifact and baseline comparison are [`results/ben
 <div align="center">
 <table>
 <tr>
-<td align="center"><img src="examples/reference.png" width="260" alt="Reference semiconductor motif"><br><sub>Reference: high-resolution site</sub></td>
-<td align="center"><img src="examples/search.png" width="260" alt="Search frame containing the site"><br><sub>Search: larger, lower-resolution frame</sub></td>
-<td align="center"><img src="examples/result.png" width="260" alt="Annotated search result"><br><sub>Result: red box and green predicted center</sub></td>
+<td align="center"><a href="./examples/reference.png"><img src="./examples/reference.png" width="320" alt="Reference semiconductor motif"></a><br><sub>Reference: high-resolution site<br>click to open full resolution</sub></td>
+<td align="center"><a href="./examples/search.png"><img src="./examples/search.png" width="320" alt="Search frame containing the site"></a><br><sub>Search: larger, lower-resolution frame<br>click to open full resolution</sub></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><a href="./examples/result.png"><img src="./examples/result.png" width="560" alt="Annotated search result"></a><br><sub>Result: wider annotated view with red box and green predicted center — click to open full resolution</sub></td>
 </tr>
 </table>
 </div>
 
-The result image is an annotated full search frame, so the target is intentionally small at this scale. The numerical output is the authoritative evaluator artifact: `499.5000 499.5000`.
+The result image is an annotated full search frame. The wider preview makes the red box easier to locate, while clicking any image opens the original 1000×1000 PNG. The numerical output remains the authoritative evaluator artifact: `499.5000 499.5000`.
 
 ## Reproduce the full evidence package
 
