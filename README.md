@@ -51,6 +51,26 @@ output: x y
 
 Diagnostics are available through `scripts/run_demo.py`; they are never printed by `inference.py` on stdout.
 
+## Which command produces which output?
+
+- Run [`inference.py`](inference.py) to execute the complete official localization pipeline. It is the evaluator-facing entry point and prints only the predicted center coordinates:
+
+  ```bash
+  python inference.py --reference examples/reference.png --search examples/search.png
+  ```
+
+  ```text
+  499.5000 499.5000
+  ```
+
+- Run [`scripts/run_demo.py`](scripts/run_demo.py) to execute the same official pipeline with human-readable diagnostics. It reports the coordinates, score, heuristic confidence, status, and latency, and writes the annotated result to `examples/result.png`.
+
+  ```bash
+  python scripts/run_demo.py
+  ```
+
+`inference.py` is the command used for scoring; `scripts/run_demo.py` is the command used to understand and visualize a prediction. The demo is not a separate model or inference path.
+
 ## Result at a glance
 
 The stored result is from 30 in-distribution synthetic pairs plus one separately reported periodic ambiguity case. It is not a claim of industrial SEM performance.
