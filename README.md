@@ -92,11 +92,11 @@ The complete machine-readable artifact and baseline comparison are [`results/ben
 <div align="center">
 <table>
 <tr>
-<td align="center"><a href="./examples/reference.png"><img src="./examples/reference.png" width="320" alt="Reference semiconductor motif"></a><br><sub>Reference: high-resolution site<br>click to open full resolution</sub></td>
-<td align="center"><a href="./examples/search.png"><img src="./examples/search.png" width="320" alt="Search frame containing the site"></a><br><sub>Search: larger, lower-resolution frame<br>click to open full resolution</sub></td>
+<td align="center"><a href="https://raw.githubusercontent.com/Maniteja8883/Drift-Sense/main/examples/reference.png"><img src="https://raw.githubusercontent.com/Maniteja8883/Drift-Sense/main/examples/reference.png" width="320" alt="Reference semiconductor motif"></a><br><sub>Reference: high-resolution site<br>click to open full resolution</sub></td>
+<td align="center"><a href="https://raw.githubusercontent.com/Maniteja8883/Drift-Sense/main/examples/search.png"><img src="https://raw.githubusercontent.com/Maniteja8883/Drift-Sense/main/examples/search.png" width="320" alt="Search frame containing the site"></a><br><sub>Search: larger, lower-resolution frame<br>click to open full resolution</sub></td>
 </tr>
 <tr>
-<td align="center" colspan="2"><a href="./examples/result.png"><img src="./examples/result.png" width="560" alt="Annotated search result"></a><br><sub>Result: wider annotated view with red box and green predicted center — click to open full resolution</sub></td>
+<td align="center" colspan="2"><a href="https://raw.githubusercontent.com/Maniteja8883/Drift-Sense/main/examples/result.png"><img src="https://raw.githubusercontent.com/Maniteja8883/Drift-Sense/main/examples/result.png" width="560" alt="Annotated search result"></a><br><sub>Result: wider annotated view with red box and green predicted center — click to open full resolution</sub></td>
 </tr>
 </table>
 </div>
