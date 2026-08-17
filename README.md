@@ -34,7 +34,7 @@ Prerequisite: Python 3.9 or newer.
 git clone https://github.com/Maniteja8883/Drift-Sense.git
 cd Drift-Sense
 python -m venv venv
-source venv/bin/activate                 # Windows: venv\Scripts\activate
+.venv\Scripts\activate                # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 python inference.py \
   --reference examples/reference.png \
